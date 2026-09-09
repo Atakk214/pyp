@@ -1,4 +1,4 @@
-Para validar funcionamiento del programa 
+Para validar funcionamiento del programa hacer uso de estas credenciales:
 
 USUARIO PACIENTE
 Paciente

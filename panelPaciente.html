@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sistema PyP - Panel del Paciente</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+</head>
+
+
+<body>
+
+    <div class="panel">
+
+
+        <!-- =========================
+             ENCABEZADO
+             ========================= -->
+
+        <header class="encabezado-paciente">
+
+            <div>
+
+                <h1>Bienvenido</h1>
+
+                <p>
+                    Gestione su salud y haga seguimiento a sus síntomas y medicamentos.
+                </p>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =========================
+             RESUMEN
+             ========================= -->
+
+        <section class="resumen">
+
+            <div class="tarjeta-resumen">
+
+                <span class="icono">
+                    <i class="fa-solid fa-heart-pulse"></i>
+                </span>
+
+                <small>
+                    Síntomas esta semana
+                </small>
+
+            </div>
+
+
+            <div class="tarjeta-resumen">
+
+                <span class="icono">
+                    <i class="fa-solid fa-pills"></i>
+                </span>
+
+                <small>
+                    Medicamentos pendientes hoy
+                </small>
+
+            </div>
+
+
+            <div class="tarjeta-resumen">
+
+                <span class="icono">
+                    <i class="fa-solid fa-book-open"></i>
+                </span>
+
+                <small>
+                    Entradas en diario
+                </small>
+
+            </div>
+
+
+            <div class="tarjeta-resumen">
+
+                <span class="icono">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </span>
+
+                <small>
+                    Alertas de seguimiento
+                </small>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             NAVEGACIÓN
+             ========================= -->
+
+        <nav class="navegacion">
+
+            <a
+                href="#sintomas"
+                class="activo"
+                onclick="mostrarModulo('sintomas', this)"
+            >
+                <i class="fa-solid fa-heart-pulse"></i>
+                Síntomas
+            </a>
+
+
+            <a
+                href="#medicamentos"
+                onclick="mostrarModulo('medicamentos', this)"
+            >
+                <i class="fa-solid fa-pills"></i>
+                Medicamentos
+            </a>
+
+
+            <a
+                href="#diario"
+                onclick="mostrarModulo('diario', this)"
+            >
+                <i class="fa-solid fa-book-open"></i>
+                Diario
+            </a>
+
+
+            <a
+                href="#alertas"
+                onclick="mostrarModulo('alertas', this)"
+            >
+                <i class="fa-solid fa-bell"></i>
+                Alertas
+            </a>
+
+
+            <a
+                href="#recomendaciones"
+                onclick="mostrarModulo('recomendaciones', this)"
+            >
+                <i class="fa-solid fa-lightbulb"></i>
+                Recomendaciones
+            </a>
+
+
+            <a
+                href="#educacion"
+                onclick="mostrarModulo('educacion', this)"
+            >
+                <i class="fa-solid fa-graduation-cap"></i>
+                Educación
+            </a>
+
+        </nav>
+
+
+
+        <!-- =========================
+             CONTENIDO
+             ========================= -->
+
+        <main class="contenido-panel">
+
+
+            <!-- =========================
+                 SÍNTOMAS
+                 ========================= -->
+
+            <section id="sintomas">
+
+                <div class="titulo-seccion">
+
+                    <div class="icono-seccion">
+
+                        <i class="fa-solid fa-heart-pulse"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+                            Registrar Síntomas
+                        </h2>
+
+                        <p>
+                            Registre los síntomas que está experimentando hoy
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <h3>
+                    Síntomas Comunes
+                </h3>
+
+
+                <div class="sintomas">
+
+                    <button type="button">
+                        dolor abdominal
+                    </button>
+
+                    <button type="button">
+                        náuseas
+                    </button>
+
+                    <button type="button">
+                        fatiga
+                    </button>
+
+                    <button type="button">
+                        dolor de cabeza
+                    </button>
+
+                    <button type="button">
+                        fiebre
+                    </button>
+
+                    <button type="button">
+                        tos
+                    </button>
+
+                    <button type="button">
+                        dificultad para respirar
+                    </button>
+
+                    <button type="button">
+                        dolor pélvico
+                    </button>
+
+                    <button type="button">
+                        pérdida de peso
+                    </button>
+
+                    <button type="button">
+                        sed excesiva
+                    </button>
+
+                    <button type="button">
+                        visión borrosa
+                    </button>
+
+                    <button type="button">
+                        hormigueo
+                    </button>
+
+                    <button type="button">
+                        diarrea
+                    </button>
+
+                </div>
+
+
+
+                <h3>
+                    Agregar Síntoma Personalizado
+                </h3>
+
+
+                <div class="campo-sintoma">
+
+                    <input
+                        type="text"
+                        placeholder="Escriba un síntoma"
+                    >
+
+                    <button
+                        type="button"
+                        class="boton-agregar"
+                    >
+                        +
+                    </button>
+
+                </div>
+
+
+
+                <h3>
+                    Nivel de Intensidad
+                </h3>
+
+
+                <div class="intensidad">
+
+                    <span>
+                        5/10 — Moderado
+                    </span>
+
+
+                    <input
+                        type="range"
+                        min="1"
+                        max="10"
+                        value="5"
+                    >
+
+
+                    <div class="niveles">
+
+                        <small>
+                            Leve
+                        </small>
+
+                        <small>
+                            Moderado
+                        </small>
+
+                        <small>
+                            Severo
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+
+                <h3>
+                    Descripción
+                    <span>(Opcional)</span>
+                </h3>
+
+
+                <textarea
+                    placeholder="Describa cómo se siente, cuándo comenzaron los síntomas, etc."
+                ></textarea>
+
+
+
+                <button
+                    class="boton-principal"
+                    type="button"
+                >
+
+                    <i class="fa-solid fa-heart-pulse"></i>
+
+                    Registrar Síntomas
+
+                </button>
+
+            </section>
+
+
+
+            <!-- =========================
+                 MEDICAMENTOS
+                 ========================= -->
+
+            <section
+                id="medicamentos"
+                class="modulo-paciente"
+            >
+
+                <div class="titulo-seccion">
+
+                    <div class="icono-seccion icono-medicamentos">
+
+                        <i class="fa-solid fa-pills"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+                            Gestión de Medicamentos
+                        </h2>
+
+                        <p>
+                            Registre y haga seguimiento a sus medicamentos.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="formulario-medicamento">
+
+                    <div>
+
+                        <label>
+                            Medicamento
+                        </label>
+
+                        <input
+                            type="text"
+                            placeholder="Ej. Acetaminofén"
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <label>
+                            Dosis
+                        </label>
+
+                        <input
+                            type="text"
+                            placeholder="Ej. 500 mg"
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <label>
+                            Frecuencia
+                        </label>
+
+                        <input
+                            type="text"
+                            placeholder="Ej. Cada 8 horas"
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <label>
+                            Hora
+                        </label>
+
+                        <input type="time">
+
+                    </div>
+
+                </div>
+
+
+
+                <button
+                    type="button"
+                    class="boton-principal"
+                >
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    Agregar medicamento
+
+                </button>
+
+
+
+                <h3>
+                    Medicamentos registrados
+                </h3>
+
+
+                <div class="tarjeta-medicamento">
+
+                    <div class="medicamento-icono">
+
+                        <i class="fa-solid fa-pills"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            Acetaminofén
+                        </strong>
+
+                        <p>
+                            500 mg · Cada 8 horas · 8:00 a. m.
+                        </p>
+
+                        <small>
+                            Próxima toma: 8:00 p. m.
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =========================
+                 DIARIO
+                 ========================= -->
+
+            <section
+                id="diario"
+                class="modulo-paciente"
+            >
+
+                <div class="titulo-seccion">
+
+                    <div class="icono-seccion icono-diario">
+
+                        <i class="fa-solid fa-book-open"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+                            Diario de Salud
+                        </h2>
+
+                        <p>
+                            Registre cómo se siente y haga seguimiento a su bienestar.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <label>
+                    ¿Cómo se siente hoy?
+                </label>
+
+
+                <textarea
+                    placeholder="Escriba cómo se siente, cambios en su estado de ánimo, síntomas u otra información importante..."
+                ></textarea>
+
+
+
+                <button
+                    type="button"
+                    class="boton-principal"
+                >
+
+                    <i class="fa-solid fa-floppy-disk"></i>
+
+                    Guardar entrada
+
+                </button>
+
+
+
+                <h3>
+                    Última entrada
+                </h3>
+
+
+                <div class="entrada-diario">
+
+                    <strong>
+                        Hoy
+                    </strong>
+
+                    <p>
+                        Me siento mejor que ayer. Presenté un poco de cansancio durante la mañana.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =========================
+                 ALERTAS
+                 ========================= -->
+
+            <section
+                id="alertas"
+                class="modulo-paciente"
+            >
+
+                <div class="titulo-seccion">
+
+                    <div class="icono-seccion icono-alertas">
+
+                        <i class="fa-solid fa-bell"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+                            Alertas
+                        </h2>
+
+                        <p>
+                            Revise sus recordatorios y alertas de seguimiento.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="tarjeta-alerta">
+
+                    <div class="alerta-icono">
+
+                        <i class="fa-solid fa-pills"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            Recordatorio de medicamento
+                        </strong>
+
+                        <p>
+                            Recuerde tomar Acetaminofén 500 mg.
+                        </p>
+
+                        <small>
+                            Próxima toma: 8:00 p. m.
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="tarjeta-alerta alerta-seguimiento">
+
+                    <div class="alerta-icono">
+
+                        <i class="fa-solid fa-heart-pulse"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            Seguimiento de síntomas
+                        </strong>
+
+                        <p>
+                            Se recomienda continuar registrando los síntomas para observar su evolución.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =========================
+                 RECOMENDACIONES
+                 ========================= -->
+
+            <section
+                id="recomendaciones"
+                class="modulo-paciente"
+            >
+
+                <div class="titulo-seccion">
+
+                    <div class="icono-seccion icono-recomendaciones">
+
+                        <i class="fa-solid fa-lightbulb"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+                            Recomendaciones
+                        </h2>
+
+                        <p>
+                            Recomendaciones generales de promoción y prevención.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="lista-recomendaciones">
+
+
+                    <div class="tarjeta-recomendacion">
+
+                        <i class="fa-solid fa-glass-water"></i>
+
+                        <div>
+
+                            <strong>
+                                Mantenga una buena hidratación
+                            </strong>
+
+                            <p>
+                                Consuma agua durante el día y mantenga hábitos adecuados de hidratación.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="tarjeta-recomendacion">
+
+                        <i class="fa-solid fa-apple-whole"></i>
+
+                        <div>
+
+                            <strong>
+                                Alimentación equilibrada
+                            </strong>
+
+                            <p>
+                                Procure mantener una alimentación variada y equilibrada.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="tarjeta-recomendacion">
+
+                        <i class="fa-solid fa-person-walking"></i>
+
+                        <div>
+
+                            <strong>
+                                Actividad física
+                            </strong>
+
+                            <p>
+                                Realice actividad física de acuerdo con sus condiciones y posibilidades.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="tarjeta-recomendacion">
+
+                        <i class="fa-solid fa-user-doctor"></i>
+
+                        <div>
+
+                            <strong>
+                                Consulta profesional
+                            </strong>
+
+                            <p>
+                                Ante síntomas persistentes o preocupantes, consulte a un profesional de salud.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="nota-preventiva">
+
+                    <i class="fa-solid fa-circle-info"></i>
+
+                    Las recomendaciones son de carácter preventivo y educativo
+                    y no sustituyen la valoración de un profesional de salud.
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =========================
+                 EDUCACIÓN
+                 ========================= -->
+
+            <section
+                id="educacion"
+                class="modulo-paciente"
+            >
+
+                <div class="titulo-seccion">
+
+                    <div class="icono-seccion icono-educacion">
+
+                        <i class="fa-solid fa-graduation-cap"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+                            Material Educativo
+                        </h2>
+
+                        <p>
+                            Información para fortalecer sus hábitos de prevención.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="material-grid">
+
+
+                    <div class="tarjeta-educativa">
+
+                        <i class="fa-solid fa-apple-whole"></i>
+
+                        <h3>
+                            Alimentación saludable
+                        </h3>
+
+                        <p>
+                            Recomendaciones para mantener hábitos de alimentación saludables.
+                        </p>
+
+                        <button type="button">
+                            Ver información
+                        </button>
+
+                    </div>
+
+
+
+                    <div class="tarjeta-educativa">
+
+                        <i class="fa-solid fa-person-running"></i>
+
+                        <h3>
+                            Actividad física
+                        </h3>
+
+                        <p>
+                            Importancia de mantener actividad física de manera regular.
+                        </p>
+
+                        <button type="button">
+                            Ver información
+                        </button>
+
+                    </div>
+
+
+
+                    <div class="tarjeta-educativa">
+
+                        <i class="fa-solid fa-shield-heart"></i>
+
+                        <h3>
+                            Prevención de enfermedades
+                        </h3>
+
+                        <p>
+                            Información general sobre hábitos de prevención y cuidado de la salud.
+                        </p>
+
+                        <button type="button">
+                            Ver información
+                        </button>
+
+                    </div>
+
+
+
+                    <div class="tarjeta-educativa">
+
+                        <i class="fa-solid fa-capsules"></i>
+
+                        <h3>
+                            Uso responsable de medicamentos
+                        </h3>
+
+                        <p>
+                            Recomendaciones generales para el uso adecuado y responsable de medicamentos.
+                        </p>
+
+                        <button type="button">
+                            Ver información
+                        </button>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+        </main>
+
+
+
+        <!-- =========================
+             CERRAR SESIÓN
+             ========================= -->
+
+        <div class="cerrar">
+
+            <button
+                type="button"
+                onclick="window.location.href='index.html'"
+            >
+                Cerrar sesión
+            </button>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =========================
+         JAVASCRIPT
+         CAMBIO DE MÓDULOS
+         ========================= -->
+
+    <script>
+
+        function mostrarModulo(id, enlace) {
+
+            // Ocultar todos los módulos
+            const modulos = document.querySelectorAll(
+                '.contenido-panel > section'
+            );
+
+            modulos.forEach(function(modulo) {
+
+                modulo.style.display = 'none';
+
+            });
+
+
+            // Mostrar el módulo seleccionado
+            const moduloSeleccionado =
+                document.getElementById(id);
+
+            if (moduloSeleccionado) {
+
+                moduloSeleccionado.style.display = 'block';
+
+            }
+
+
+            // Quitar la clase activo de todos los enlaces
+            const enlaces =
+                document.querySelectorAll('.navegacion a');
+
+            enlaces.forEach(function(item) {
+
+                item.classList.remove('activo');
+
+            });
+
+
+            // Activar el enlace seleccionado
+            enlace.classList.add('activo');
+
+        }
+
+
+
+        // Mostrar Síntomas al abrir el panel
+
+        document.addEventListener(
+            'DOMContentLoaded',
+            function() {
+
+                const modulos =
+                    document.querySelectorAll(
+                        '.contenido-panel > section'
+                    );
+
+
+                modulos.forEach(function(modulo) {
+
+                    modulo.style.display = 'none';
+
+                });
+
+
+                const sintomas =
+                    document.getElementById('sintomas');
+
+
+                if (sintomas) {
+
+                    sintomas.style.display = 'block';
+
+                }
+
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>

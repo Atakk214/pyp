@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sistema PyP - Personal de Salud</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="panel salud-panel">
+
+    <!-- ENCABEZADO -->
+
+    <header class="encabezado-salud">
+
+        <div class="volver-busqueda">
+            <i class="fa-solid fa-arrow-left"></i>
+            Volver a búsqueda
+        </div>
+
+        <div class="paciente-info">
+
+            <div class="avatar-paciente">
+                <i class="fa-solid fa-user"></i>
+            </div>
+
+            <div>
+
+                <h1>Paciente</h1>
+
+                <p>ID: patient</p>
+
+                <div class="datos-paciente">
+
+                    <span>2 síntomas</span>
+                    <span>•</span>
+                    <span>1 medicamento</span>
+                    <span>•</span>
+                    <span>1 entrada</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- NAVEGACIÓN -->
+
+    <nav class="navegacion navegacion-salud">
+
+        <a href="#sintomas" class="activo-salud">
+
+            <i class="fa-solid fa-heart-pulse"></i>
+
+            Historial de Síntomas
+
+        </a>
+
+        <a href="#medicamentos">
+
+            <i class="fa-solid fa-pills"></i>
+
+            Medicamentos
+
+        </a>
+
+        <a href="#diario">
+
+            <i class="fa-solid fa-book-open"></i>
+
+            Diario de Salud
+
+        </a>
+
+    </nav>
+
+
+    <!-- CONTENIDO -->
+
+    <main class="contenido-salud">
+
+        <p class="solo-lectura">
+
+            Solo lectura — 2 registros
+
+        </p>
+
+
+        <!-- REGISTRO 1 -->
+
+        <section id="sintomas" class="registro-sintoma">
+
+            <div class="fecha">
+
+                1 de septiembre, 2026 — 20:08
+
+            </div>
+
+            <div class="intensidad-moderada">
+
+                Intensidad 5/10
+
+            </div>
+
+            <div class="etiquetas">
+
+                <span>dolor abdominal</span>
+
+            </div>
+
+            <p>
+
+                mal
+
+            </p>
+
+        </section>
+
+
+        <!-- REGISTRO 2 -->
+
+        <section class="registro-sintoma">
+
+            <div class="fecha">
+
+                1 de septiembre, 2026 — 20:08
+
+            </div>
+
+            <div class="intensidad-severa">
+
+                Intensidad 10/10
+
+            </div>
+
+            <div class="etiquetas">
+
+                <span>diarrea</span>
+
+                <span>dolor</span>
+
+            </div>
+
+            <p>
+
+                mal
+
+            </p>
+
+        </section>
+
+
+        <!-- MEDICAMENTOS -->
+
+        <section id="medicamentos" style="display:none;">
+
+        </section>
+
+
+        <!-- DIARIO -->
+
+        <section id="diario" style="display:none;">
+
+        </section>
+
+    </main>
+
+
+    <!-- CERRAR SESIÓN -->
+
+    <div class="cerrar">
+
+        <button
+            type="button"
+            onclick="window.location.href='index.html'">
+
+            Cerrar sesión
+
+        </button>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

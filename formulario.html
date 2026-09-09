@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Registro - Sistema PyP</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="contenedor">
+
+        <div class="login">
+
+            <h1>Sistema PyP</h1>
+            <p>Registro de Usuario</p>
+
+            <input type="text" id="nombre" placeholder="Nombres">
+
+            <input type="text" id="apellido" placeholder="Apellidos">
+
+            <select id="tipoDocumento">
+                <option value="">Tipo de documento</option>
+                <option>Cédula de ciudadanía</option>
+                <option>Tarjeta de identidad</option>
+                <option>Cédula de extranjería</option>
+                <option>Pasaporte</option>
+            </select>
+
+            <input type="number" id="documento" placeholder="Número de documento">
+
+            <label>Fecha de nacimiento</label>
+
+            <input type="date" id="fechaNacimiento">
+
+            <select id="sexo">
+                <option value="">Sexo</option>
+                <option>Femenino</option>
+                <option>Masculino</option>
+                <option>Otro</option>
+            </select>
+
+            <input type="email" id="correo" placeholder="Correo electrónico">
+
+            <input type="tel" id="telefono" placeholder="Número de teléfono">
+
+            <input type="text" id="direccion" placeholder="Dirección">
+
+            <input type="text" id="usuarioNuevo" placeholder="Nombre de usuario">
+
+            <input type="password" id="passwordNueva" placeholder="Contraseña">
+
+            <input type="password" id="confirmarPassword" placeholder="Confirmar contraseña">
+
+            <div class="botones">
+
+    <button onclick="registrar()">
+        Registrarse
+    </button>
+
+    <button class="volver"
+        onclick="window.location.href='index.html'">
+        Volver al inicio
+    </button>
+
+</div>
+
+
+   
+    <script src="script.js"></script>
+
+</body>
+
+</html>

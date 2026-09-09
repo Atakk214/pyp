@@ -1,0 +1,1038 @@
+/* =========================
+   ESTILOS GENERALES
+   Sistema PyP
+   ========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #eef2ff;
+    color: #1e3a5f;
+}
+
+/* =========================
+   CONTENEDOR PRINCIPAL
+   ========================= */
+
+.contenedor {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 20px;
+}
+
+/* =========================
+   TARJETAS / FORMULARIOS
+   ========================= */
+
+.login {
+    background: white;
+    padding: 35px;
+    border-radius: 18px;
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(37, 99, 235, 0.15);
+}
+
+/* =========================
+   TÍTULOS
+   ========================= */
+
+.login h1 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    color: #2563eb;
+    font-size: 30px;
+}
+
+.subtitulo {
+    color: #64748b;
+    font-weight: normal;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+/* =========================
+   CAMPOS
+   ========================= */
+
+input,
+select {
+    width: 100%;
+    padding: 12px 14px;
+    margin: 8px 0;
+    border-radius: 9px;
+    border: 1px solid #dbe3f0;
+    background: #ffffff;
+    color: #334155;
+    font-size: 15px;
+    outline: none;
+    transition: 0.2s;
+}
+
+input:focus,
+select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+select {
+    cursor: pointer;
+}
+
+/* =========================
+   ETIQUETAS
+   ========================= */
+
+label {
+    display: block;
+    text-align: left;
+    margin-top: 12px;
+    margin-bottom: 4px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #334155;
+}
+
+/* =========================
+   BOTONES
+   ========================= */
+
+button {
+    width: 100%;
+    padding: 13px;
+    margin-top: 12px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+}
+
+/* Botón secundario */
+
+.volver {
+    margin-top: 12px;
+    background: #7c3aed;
+}
+
+.volver:hover {
+    background: #6d28d9;
+}
+
+/* =========================
+   FILAS DE FORMULARIO
+   ========================= */
+
+.fila {
+    display: flex;
+    gap: 12px;
+}
+
+.fila input,
+.fila select {
+    width: 100%;
+}
+
+/* =========================
+   MENSAJES
+   ========================= */
+
+.mensaje {
+    text-align: center;
+    color: #555;
+    line-height: 1.5;
+    margin-top: 15px;
+}
+
+/* =========================
+   LISTAS
+   ========================= */
+
+.lista {
+    text-align: left;
+    margin: 20px 0;
+    padding-left: 25px;
+    color: #444;
+    line-height: 1.8;
+}
+
+.lista li {
+    margin-bottom: 8px;
+}
+
+/* =========================
+   PIE DE PÁGINA
+   ========================= */
+
+.pie {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #64748b;
+}
+
+/* =========================
+   BOTONES AGRUPADOS
+   ========================= */
+
+.botones {
+    margin-top: 20px;
+}
+
+/* =========================
+   ADAPTACIÓN A CELULAR
+   ========================= */
+
+@media (max-width: 600px) {
+
+    .contenedor {
+        padding: 20px 12px;
+    }
+
+    .login {
+        padding: 25px 20px;
+    }
+
+    .fila {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .login h1 {
+        font-size: 26px;
+    }
+}
+/* =========================
+   PANEL DEL PACIENTE
+   ========================= */
+
+.panel {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 28px 20px 40px;
+}
+
+/* Encabezado azul */
+
+.encabezado-paciente {
+    background: linear-gradient(135deg, #2563eb, #4f46e5);
+    color: white;
+    padding: 28px 32px;
+    border-radius: 18px 18px 0 0;
+}
+
+.encabezado-paciente h1 {
+    margin: 0 0 6px;
+    font-size: 26px;
+}
+
+.encabezado-paciente p {
+    margin: 0;
+    color: #e0e7ff;
+}
+
+/* Tarjetas resumen */
+
+.resumen {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    background: linear-gradient(135deg, #2563eb, #4f46e5);
+    padding: 0 20px 20px;
+    border-radius: 0 0 18px 18px;
+}
+
+.tarjeta-resumen {
+    background: rgba(255, 255, 255, 0.13);
+    border-radius: 14px;
+    padding: 16px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    min-height: 100px;
+}
+
+.tarjeta-resumen .icono {
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+.tarjeta-resumen strong {
+    font-size: 24px;
+}
+
+.tarjeta-resumen small {
+    margin-top: 5px;
+    color: #e0e7ff;
+}
+
+/* Navegación */
+
+.navegacion {
+    margin-top: 22px;
+    background: white;
+    border: 1px solid #dbe3f0;
+    border-radius: 16px 16px 0 0;
+    display: flex;
+    overflow-x: auto;
+}
+
+.navegacion a {
+    text-decoration: none;
+    color: #64748b;
+    padding: 16px 22px;
+    border-bottom: 2px solid transparent;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.navegacion a:hover,
+.navegacion a.activo {
+    color: #2563eb;
+    border-bottom-color: #2563eb;
+}
+
+/* Contenido principal */
+
+.contenido-panel {
+    background: white;
+    border: 1px solid #dbe3f0;
+    border-top: none;
+    padding: 26px;
+    border-radius: 0 0 16px 16px;
+    box-shadow: 0 5px 18px rgba(15, 23, 42, 0.06);
+}
+
+.titulo-seccion {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 25px;
+}
+
+.icono-seccion {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #dbeafe;
+    color: #2563eb;
+    font-size: 22px;
+}
+
+.titulo-seccion h2 {
+    margin: 0;
+    color: #0f172a;
+    font-size: 21px;
+}
+
+.titulo-seccion p {
+    margin: 4px 0 0;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.contenido-panel h3 {
+    margin: 22px 0 10px;
+    font-size: 14px;
+    color: #1e293b;
+}
+
+.contenido-panel h3 span {
+    color: #94a3b8;
+    font-weight: normal;
+}
+
+/* Botones de síntomas */
+
+.sintomas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.sintomas button {
+    width: auto;
+    margin: 0;
+    background: white;
+    color: #334155;
+    border: 1px solid #dbe3f0;
+    border-radius: 20px;
+    padding: 8px 13px;
+    font-weight: normal;
+}
+
+.sintomas button:hover {
+    background: #eff6ff;
+    color: #2563eb;
+    border-color: #93c5fd;
+    transform: none;
+}
+
+/* Campo síntoma */
+
+.campo-sintoma {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.campo-sintoma input {
+    margin: 0;
+}
+
+.boton-agregar {
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    margin: 0;
+    padding: 0;
+    border-radius: 12px;
+    font-size: 24px;
+}
+
+/* Intensidad */
+
+.intensidad {
+    position: relative;
+}
+
+.intensidad > span {
+    display: block;
+    width: fit-content;
+    margin-left: auto;
+    margin-bottom: 8px;
+    background: #fff7ed;
+    color: #ea580c;
+    border: 1px solid #fdba74;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.intensidad input[type="range"] {
+    width: 100%;
+    margin: 0;
+    accent-color: #f59e0b;
+}
+
+.niveles {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.niveles small:nth-child(1) {
+    color: #059669;
+}
+
+.niveles small:nth-child(2) {
+    color: #f59e0b;
+}
+
+.niveles small:nth-child(3) {
+    color: #dc2626;
+}
+
+/* Descripción */
+
+textarea {
+    width: 100%;
+    min-height: 110px;
+    padding: 13px 14px;
+    border: 1px solid #dbe3f0;
+    border-radius: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    resize: vertical;
+    outline: none;
+}
+
+textarea:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* Botón principal */
+
+.boton-principal {
+    margin-top: 22px;
+    background: #2563eb;
+}
+
+/* Cerrar sesión */
+
+.cerrar {
+    max-width: 220px;
+    margin: 18px 0 0 auto;
+}
+
+.cerrar button {
+    background: #7c3aed;
+}
+
+.cerrar button:hover {
+    background: #6d28d9;
+}
+
+/* Responsive */
+
+@media (max-width: 800px) {
+
+    .resumen {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .navegacion {
+        overflow-x: auto;
+    }
+}
+
+@media (max-width: 520px) {
+
+    .panel {
+        padding: 15px 10px 30px;
+    }
+
+    .encabezado-paciente {
+        padding: 22px 18px;
+    }
+
+    .resumen {
+        grid-template-columns: 1fr;
+        padding: 0 14px 14px;
+    }
+
+    .contenido-panel {
+        padding: 18px;
+    }
+
+    .campo-sintoma {
+        align-items: stretch;
+    }
+}
+/* =========================
+   PANEL PERSONAL DE SALUD
+   ========================= */
+
+.salud-panel {
+    max-width: 1200px;
+}
+
+/* Encabezado morado */
+
+.encabezado-salud {
+    background: linear-gradient(135deg, #7c3aed, #8b00e8);
+    color: white;
+    padding: 22px 26px;
+    border-radius: 18px;
+    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.18);
+}
+
+.volver-busqueda {
+    font-size: 14px;
+    margin-bottom: 18px;
+}
+
+.paciente-info {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.avatar-paciente {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.paciente-info h1 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.paciente-info p {
+    margin: 3px 0;
+    font-size: 13px;
+    color: #ede9fe;
+}
+
+.datos-paciente {
+    display: flex;
+    gap: 9px;
+    font-size: 12px;
+    color: #ede9fe;
+}
+
+/* Navegación de salud */
+
+.navegacion-salud {
+    margin-top: 18px;
+}
+
+.navegacion-salud a {
+    color: #64748b;
+}
+
+.navegacion-salud a:hover,
+.navegacion-salud a.activo-salud {
+    color: #7c3aed;
+    border-bottom-color: #7c3aed;
+}
+
+/* Contenido */
+
+.contenido-salud {
+    background: white;
+    border: 1px solid #dbe3f0;
+    border-top: none;
+    padding: 18px 16px;
+    border-radius: 0 0 16px 16px;
+    box-shadow: 0 5px 18px rgba(15, 23, 42, 0.06);
+}
+
+.solo-lectura {
+    color: #94a3b8;
+    font-size: 12px;
+    margin: 0 0 14px 2px;
+}
+
+/* Registros */
+
+.registro-sintoma {
+    position: relative;
+    background: #f8fafc;
+    border: 1px solid #dbe3f0;
+    border-radius: 14px;
+    padding: 15px 16px;
+    margin-bottom: 10px;
+}
+
+.fecha {
+    color: #94a3b8;
+    font-size: 12px;
+    margin-bottom: 9px;
+}
+
+.etiquetas {
+    display: flex;
+    gap: 7px;
+    flex-wrap: wrap;
+}
+
+.etiquetas span {
+    background: white;
+    border: 1px solid #dbe3f0;
+    color: #334155;
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+.registro-sintoma p {
+    color: #64748b;
+    font-size: 12px;
+    margin: 10px 0 0;
+}
+
+/* Indicadores de intensidad */
+
+.intensidad-moderada,
+.intensidad-severa {
+    position: absolute;
+    top: 13px;
+    right: 13px;
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.intensidad-moderada {
+    background: #fff7ed;
+    color: #ea580c;
+    border: 1px solid #fed7aa;
+}
+
+.intensidad-severa {
+    background: #fee2e2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+}
+
+/* Botón cerrar */
+
+.salud-panel .cerrar button {
+    background: #7c3aed;
+}
+
+.salud-panel .cerrar button:hover {
+    background: #6d28d9;
+}
+
+/* Responsive */
+
+@media (max-width: 600px) {
+
+    .paciente-info {
+        align-items: flex-start;
+    }
+
+    .datos-paciente {
+        flex-wrap: wrap;
+    }
+
+    .intensidad-moderada,
+    .intensidad-severa {
+        position: static;
+        display: inline-block;
+        margin-bottom: 8px;
+    }
+}
+/* Iconos */
+
+.navegacion i {
+    margin-right: 6px;
+    font-size: 13px;
+}
+
+.tarjeta-resumen .icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tarjeta-resumen .icono i {
+    font-size: 18px;
+}
+
+.icono-seccion i {
+    font-size: 20px;
+}
+/* =========================
+   MÓDULOS DEL PACIENTE
+   ========================= */
+
+.modulo-paciente {
+    margin-top: 28px;
+    padding: 26px;
+    background: white;
+    border: 1px solid #dbe3f0;
+    border-radius: 16px;
+    box-shadow: 0 5px 18px rgba(15, 23, 42, 0.06);
+}
+
+
+/* Iconos de cada módulo */
+
+.icono-medicamentos {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.icono-diario {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.icono-alertas {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.icono-recomendaciones {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.icono-educacion {
+    background: #ede9fe;
+    color: #7c3aed;
+}
+
+
+/* =========================
+   MEDICAMENTOS
+   ========================= */
+
+.formulario-medicamento {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 12px;
+}
+
+.formulario-medicamento label {
+    margin-top: 0;
+}
+
+.tarjeta-medicamento {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px;
+    background: #f8fafc;
+    border: 1px solid #dbe3f0;
+    border-radius: 14px;
+}
+
+.medicamento-icono {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: #dcfce7;
+    color: #16a34a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.tarjeta-medicamento strong {
+    color: #1e293b;
+}
+
+.tarjeta-medicamento p {
+    margin: 4px 0;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.tarjeta-medicamento small {
+    color: #16a34a;
+    font-weight: bold;
+}
+
+
+/* =========================
+   DIARIO
+   ========================= */
+
+.entrada-diario {
+    padding: 16px;
+    background: #f8fafc;
+    border: 1px solid #dbe3f0;
+    border-radius: 14px;
+}
+
+.entrada-diario strong {
+    color: #475569;
+    font-size: 13px;
+}
+
+.entrada-diario p {
+    margin: 7px 0 0;
+    color: #64748b;
+    font-size: 14px;
+}
+
+
+/* =========================
+   ALERTAS
+   ========================= */
+
+.tarjeta-alerta {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px;
+    margin-bottom: 12px;
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    border-radius: 14px;
+}
+
+.tarjeta-alerta.alerta-seguimiento {
+    background: #eff6ff;
+    border-color: #bfdbfe;
+}
+
+.alerta-icono {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    border-radius: 12px;
+    background: white;
+    color: #ea580c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.alerta-seguimiento .alerta-icono {
+    color: #2563eb;
+}
+
+.tarjeta-alerta strong {
+    color: #1e293b;
+}
+
+.tarjeta-alerta p {
+    margin: 5px 0;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.tarjeta-alerta small {
+    color: #94a3b8;
+}
+
+
+/* =========================
+   RECOMENDACIONES
+   ========================= */
+
+.lista-recomendaciones {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.tarjeta-recomendacion {
+    display: flex;
+    gap: 14px;
+    padding: 17px;
+    background: #f8fafc;
+    border: 1px solid #dbe3f0;
+    border-radius: 14px;
+}
+
+.tarjeta-recomendacion > i {
+    font-size: 21px;
+    color: #2563eb;
+    margin-top: 3px;
+}
+
+.tarjeta-recomendacion strong {
+    color: #1e293b;
+    font-size: 14px;
+}
+
+.tarjeta-recomendacion p {
+    margin: 5px 0 0;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.nota-preventiva {
+    margin-top: 16px;
+    padding: 12px 14px;
+    background: #eff6ff;
+    border-radius: 10px;
+    color: #475569;
+    font-size: 12px;
+}
+
+.nota-preventiva i {
+    color: #2563eb;
+    margin-right: 5px;
+}
+
+
+/* =========================
+   MATERIAL EDUCATIVO
+   ========================= */
+
+.material-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.tarjeta-educativa {
+    padding: 20px;
+    background: #f8fafc;
+    border: 1px solid #dbe3f0;
+    border-radius: 14px;
+}
+
+.tarjeta-educativa > i {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ede9fe;
+    color: #7c3aed;
+    border-radius: 12px;
+    font-size: 20px;
+}
+
+.tarjeta-educativa h3 {
+    margin: 14px 0 7px;
+    color: #1e293b;
+}
+
+.tarjeta-educativa p {
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.5;
+    min-height: 40px;
+}
+
+.tarjeta-educativa button {
+    margin-top: 10px;
+    width: auto;
+    padding: 9px 15px;
+    font-size: 13px;
+}
+
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 850px) {
+
+    .formulario-medicamento {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .lista-recomendaciones,
+    .material-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+@media (max-width: 520px) {
+
+    .modulo-paciente {
+        padding: 18px;
+    }
+
+    .formulario-medicamento {
+        grid-template-columns: 1fr;
+    }
+}
+/* =========================
+   NAVEGACIÓN ENTRE MÓDULOS
+   ========================= */
+
+.modulo-oculto {
+    display: none;
+}

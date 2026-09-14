@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- ENCABEZADO -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp">
+
+            <ImageButton
+                android:id="@+id/btnMenu"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@android:color/transparent"
+                android:src="@android:drawable/ic_menu_sort_by_size"
+                android:contentDescription="Abrir menú" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Sistema PyP"
+                android:textColor="#111111"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:gravity="center" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@android:drawable/ic_menu_myplaces"
+                android:contentDescription="Perfil" />
+
+        </LinearLayout>
+
+        <!-- CONTENIDO -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="24dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Alertas"
+                    android:textColor="#111111"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Consulta tus recordatorios y alertas."
+                    android:textColor="#222222"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="24dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Recordatorios"
+                    android:textColor="#111111"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="16dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:background="#EEEEEE"
+                    android:layout_marginBottom="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="💊 Medicamento"
+                        android:textColor="#111111"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Recuerda tomar tu medicamento según la frecuencia registrada."
+                        android:textColor="#333333"
+                        android:textSize="15sp"
+                        android:layout_marginTop="8dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:background="#EEEEEE">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="📅 Cita médica"
+                        android:textColor="#111111"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Recuerda asistir a tus próximas citas programadas."
+                        android:textColor="#333333"
+                        android:textSize="15sp"
+                        android:layout_marginTop="8dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+    <!-- MENÚ LATERAL -->
+    <LinearLayout
+        android:id="@+id/menuLateral"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:orientation="vertical"
+        android:background="#FFFFFF"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Paciente"
+            android:textColor="#111111"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="24dp" />
+
+        <TextView
+            android:id="@+id/menuSintomas"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="Síntomas"
+            android:textColor="#111111"
+            android:textSize="17sp"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/menuMedicamentos"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="Medicamentos"
+            android:textColor="#111111"
+            android:textSize="17sp"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/menuDiario"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="Diario"
+            android:textColor="#111111"
+            android:textSize="17sp"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/menuAlertas"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="Alertas"
+            android:textColor="#111111"
+            android:textSize="17sp"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/menuRecomendaciones"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="Recomendaciones"
+            android:textColor="#111111"
+            android:textSize="17sp"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/menuEducacion"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="Educación"
+            android:textColor="#111111"
+            android:textSize="17sp"
+            android:gravity="center_vertical" />
+
+    </LinearLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>

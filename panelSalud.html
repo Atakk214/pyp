@@ -1,200 +1,1090 @@
+
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Sistema PyP - Personal de Salud</title>
-
-    <link rel="stylesheet" href="style.css">
-
+    <title>PyP System - Panel de Salud</title>
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
+    <style>
+        :root {
+            --azul: #2B708F;
+            --morado: #913E98;
+            --fondo: #080808;
+            --panel: #111111;
+            --borde: #333333;
+            --texto: #F3F4F6;
+            --secundario: #B8C0CA;
+            --verde: #56C596;
+            --naranja: #F4B860;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background: var(--fondo);
+            color: var(--texto);
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        button, input, select { font: inherit; }
+
+        button {
+            cursor: pointer;
+            border: 0;
+            border-radius: 8px;
+            padding: 10px 13px;
+            background: var(--azul);
+            color: white;
+            transition: opacity .2s;
+        }
+
+        button:hover { opacity: .86; }
+
+        button:disabled {
+            cursor: default;
+            opacity: .55;
+        }
+
+        .app {
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        .encabezado {
+            background: var(--azul);
+            border-radius: 13px;
+            padding: 17px 22px;
+            margin-bottom: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .encabezado h1 {
+            font-size: 25px;
+            margin: 0 0 5px;
+        }
+
+        .encabezado p {
+            margin: 0;
+            color: #E3EDF3;
+        }
+
+        .etiqueta-demo {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #DDF8EB;
+            background: #1D604F;
+            border-radius: 20px;
+            padding: 7px 11px;
+            font-size: 12px;
+        }
+
+        .busqueda {
+            background: var(--panel);
+            border: 1px solid var(--borde);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 18px;
+        }
+
+        .busqueda h2, .lista-pacientes h2 {
+            margin: 0 0 8px;
+            font-size: 18px;
+        }
+
+        .ayuda {
+            color: var(--secundario);
+            margin: 0 0 16px;
+            line-height: 1.5;
+        }
+
+        .form-busqueda {
+            display: flex;
+            gap: 10px;
+        }
+
+        input {
+            width: 100%;
+            min-width: 0;
+            color: white;
+            background: #191919;
+            border: 1px solid #484848;
+            border-radius: 8px;
+            padding: 11px 12px;
+        }
+
+        input:focus {
+            outline: 2px solid var(--azul);
+            outline-offset: 1px;
+        }
+
+        .mensaje {
+            margin-top: 12px;
+            color: var(--naranja);
+            line-height: 1.5;
+        }
+
+        .resultados {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .paciente-lista {
+            background: #181818;
+            border: 1px solid var(--borde);
+            border-radius: 10px;
+            padding: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar {
+            width: 44px;
+            height: 44px;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            background: var(--morado);
+            border-radius: 12px;
+            font-size: 19px;
+        }
+
+        .paciente-lista .info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .paciente-lista h3 {
+            margin: 0 0 5px;
+            font-size: 14px;
+        }
+
+        .paciente-lista p {
+            margin: 3px 0;
+            color: var(--secundario);
+            font-size: 12px;
+            overflow-wrap: anywhere;
+        }
+
+        .estado {
+            display: inline-block;
+            border-radius: 20px;
+            padding: 5px 8px;
+            font-size: 11px;
+            background: #1D604F;
+            color: #DDF8EB;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 255px minmax(0, 1fr);
+            align-items: start;
+            gap: 16px;
+        }
+
+        .columna-lateral {
+            display: grid;
+            gap: 12px;
+        }
+
+        .tarjeta-paciente {
+            background: var(--morado);
+            border-radius: 13px;
+            padding: 19px;
+        }
+
+        .tarjeta-paciente .avatar {
+            background: rgba(255,255,255,.17);
+            margin-bottom: 13px;
+        }
+
+        .tarjeta-paciente h2 {
+            font-size: 17px;
+            margin: 0 0 7px;
+        }
+
+        .tarjeta-paciente p {
+            font-size: 12px;
+            margin: 5px 0;
+            overflow-wrap: anywhere;
+        }
+
+        .navegacion {
+            background: var(--panel);
+            border: 1px solid var(--borde);
+            border-radius: 12px;
+            padding: 12px;
+        }
+
+        .navegacion h3 {
+            color: var(--secundario);
+            font-size: 11px;
+            letter-spacing: .8px;
+            margin: 4px 5px 12px;
+        }
+
+        .nav-item {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: transparent;
+            color: #E7E7E7;
+            text-align: left;
+            margin-bottom: 5px;
+            padding: 11px 10px;
+        }
+
+        .nav-item i {
+            width: 18px;
+            color: #A6C9D9;
+        }
+
+        .nav-item.activo {
+            background: #D9EEF7;
+            color: #225C77;
+        }
+
+        .nav-item.activo i { color: #225C77; }
+
+        .cerrar-sesion {
+            width: 100%;
+            background: #292929;
+            border: 1px solid var(--borde);
+        }
+
+        .contenido {
+            min-width: 0;
+            background: var(--panel);
+            border: 1px solid var(--borde);
+            border-radius: 12px;
+            padding: 22px;
+        }
+
+        .encabezado-vista {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 17px;
+            border-bottom: 1px solid #292929;
+        }
+
+        .encabezado-vista h2 {
+            margin: 0 0 7px;
+            font-size: 21px;
+        }
+
+        .encabezado-vista p {
+            margin: 0;
+            color: var(--secundario);
+            line-height: 1.5;
+        }
+
+        .solo-lectura {
+            color: var(--secundario);
+            font-size: 12px;
+        }
+
+        .resumen-estadisticas {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .estadistica {
+            background: #191919;
+            border: 1px solid var(--borde);
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .estadistica span {
+            display: block;
+            color: var(--secundario);
+            font-size: 12px;
+            margin-bottom: 9px;
+        }
+
+        .estadistica strong { font-size: 24px; }
+
+        .estadistica small {
+            display: block;
+            color: var(--secundario);
+            margin-top: 5px;
+        }
+
+        .bloque {
+            border: 1px solid var(--borde);
+            border-radius: 10px;
+            padding: 17px;
+            margin-top: 15px;
+        }
+
+        .bloque h3 {
+            font-size: 15px;
+            margin: 0 0 16px;
+        }
+
+        .grafica {
+            display: grid;
+            gap: 15px;
+        }
+
+        .fila-barra {
+            display: grid;
+            grid-template-columns: 105px minmax(0, 1fr) 40px;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+        }
+
+        .pista {
+            height: 12px;
+            background: #333333;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .barra {
+            height: 100%;
+            border-radius: 20px;
+            background: var(--azul);
+        }
+
+        .barra.alta { background: #D47B45; }
+        .barra.severa { background: #C94F62; }
+
+        .lista-registros {
+            display: grid;
+            gap: 10px;
+        }
+
+        .registro {
+            background: #181818;
+            border: 1px solid var(--borde);
+            border-radius: 9px;
+            padding: 14px;
+        }
+
+        .registro-superior {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .fecha {
+            color: var(--secundario);
+            font-size: 12px;
+        }
+
+        .intensidad {
+            color: #FFD6A1;
+            background: #54381F;
+            border-radius: 20px;
+            padding: 5px 8px;
+            font-size: 11px;
+        }
+
+        .intensidad.roja {
+            color: #FFD3D8;
+            background: #592731;
+        }
+
+        .etiquetas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 8px 0;
+        }
+
+        .etiquetas span {
+            background: #202A30;
+            color: #C9E6F4;
+            border-radius: 20px;
+            padding: 5px 9px;
+            font-size: 11px;
+        }
+
+        .registro p {
+            margin: 8px 0 0;
+            color: #D0D0D0;
+            line-height: 1.5;
+        }
+
+        .tabla-contenedor {
+            overflow-x: auto;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            min-width: 560px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 13px 11px;
+            border-bottom: 1px solid #333333;
+            vertical-align: top;
+            line-height: 1.5;
+        }
+
+        th {
+            color: #D8EAF2;
+            background: #1C2C34;
+            font-size: 12px;
+        }
+
+        td {
+            color: #E0E0E0;
+            font-size: 13px;
+        }
+
+        td small {
+            display: block;
+            color: var(--secundario);
+            margin-top: 4px;
+        }
+
+        .estado-medicamento {
+            color: #B8F0D4;
+            background: #1D493B;
+            border-radius: 20px;
+            padding: 5px 8px;
+            font-size: 11px;
+            white-space: nowrap;
+        }
+
+        .entrada-diario {
+            border-left: 3px solid var(--morado);
+            background: #181818;
+            padding: 14px;
+            border-radius: 0 9px 9px 0;
+            margin-bottom: 12px;
+        }
+
+        .entrada-diario h3 {
+            margin: 8px 0;
+            font-size: 14px;
+        }
+
+        .entrada-diario p {
+            color: #D1D1D1;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .nota-demo {
+            margin-top: 20px;
+            padding: 12px;
+            background: #202020;
+            border-radius: 8px;
+            color: var(--secundario);
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .oculto { display: none !important; }
+
+        @media (max-width: 850px) {
+            body { padding: 10px; }
+
+            .layout { grid-template-columns: 1fr; }
+
+            .columna-lateral {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .tarjeta-paciente { grid-column: 1 / -1; }
+
+            .cerrar-sesion { align-self: stretch; }
+        }
+
+        @media (max-width: 560px) {
+            .encabezado {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .form-busqueda { flex-direction: column; }
+
+            .resultados { grid-template-columns: 1fr; }
+
+            .columna-lateral { grid-template-columns: 1fr; }
+
+            .resumen-estadisticas { grid-template-columns: 1fr; }
+
+            .contenido { padding: 14px; }
+
+            .fila-barra {
+                grid-template-columns: 85px minmax(0, 1fr) 30px;
+                gap: 7px;
+            }
+        }
+    </style>
 </head>
 
 <body>
+<div class="app">
 
-<div class="panel salud-panel">
-
-    <!-- ENCABEZADO -->
-
-    <header class="encabezado-salud">
-
-        <div class="volver-busqueda">
-            <i class="fa-solid fa-arrow-left"></i>
-            Volver a búsqueda
+    <header class="encabezado">
+        <div>
+            <h1>PyP System</h1>
+            <p>Panel del profesional de salud</p>
         </div>
-
-        <div class="paciente-info">
-
-            <div class="avatar-paciente">
-                <i class="fa-solid fa-user"></i>
-            </div>
-
-            <div>
-
-                <h1>Paciente</h1>
-
-                <p>ID: patient</p>
-
-                <div class="datos-paciente">
-
-                    <span>2 síntomas</span>
-                    <span>•</span>
-                    <span>1 medicamento</span>
-                    <span>•</span>
-                    <span>1 entrada</span>
-
-                </div>
-
-            </div>
-
-        </div>
-
+        <span class="etiqueta-demo">
+            <i class="fa-solid fa-shield-halved"></i>
+            Entorno de demostración
+        </span>
     </header>
 
-
-    <!-- NAVEGACIÓN -->
-
-    <nav class="navegacion navegacion-salud">
-
-        <a href="#sintomas" class="activo-salud">
-
-            <i class="fa-solid fa-heart-pulse"></i>
-
-            Historial de Síntomas
-
-        </a>
-
-        <a href="#medicamentos">
-
-            <i class="fa-solid fa-pills"></i>
-
-            Medicamentos
-
-        </a>
-
-        <a href="#diario">
-
-            <i class="fa-solid fa-book-open"></i>
-
-            Diario de Salud
-
-        </a>
-
-    </nav>
-
-
-    <!-- CONTENIDO -->
-
-    <main class="contenido-salud">
-
-        <p class="solo-lectura">
-
-            Solo lectura — 2 registros
-
+    <!-- BÚSQUEDA DE PACIENTES -->
+    <section class="busqueda">
+        <h2><i class="fa-solid fa-magnifying-glass"></i> Buscar paciente</h2>
+        <p class="ayuda">
+            Busca por número de documento o selecciona un paciente
+            de la lista de demostración.
         </p>
 
+        <form class="form-busqueda" id="form-busqueda">
+            <input
+                id="documento"
+                type="text"
+                inputmode="numeric"
+                autocomplete="off"
+                placeholder="Número de documento"
+                aria-label="Número de documento">
+            <button type="submit">
+                <i class="fa-solid fa-search"></i> Buscar
+            </button>
+        </form>
 
-        <!-- REGISTRO 1 -->
+        <div id="mensaje-busqueda" class="mensaje" role="status"></div>
+        <div id="resultados" class="resultados"></div>
+    </section>
 
-        <section id="sintomas" class="registro-sintoma">
+    <!-- PANEL CLÍNICO DEL PACIENTE SELECCIONADO -->
+    <div id="panel-clinico" class="layout">
 
-            <div class="fecha">
+        <aside class="columna-lateral">
 
-                1 de septiembre, 2026 — 20:08
+            <section class="tarjeta-paciente">
+                <div class="avatar">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <h2 id="nombre-lateral">Carlos Andrés Rojas</h2>
+                <p id="documento-lateral">Documento: 1020304050</p>
+                <p><i class="fa-solid fa-heart-pulse"></i> 8 registros de síntomas</p>
+                <p><i class="fa-solid fa-pills"></i> 5 medicamentos de ejemplo</p>
+                <p><i class="fa-solid fa-book-open"></i> 6 entradas de diario</p>
+                <p><i class="fa-solid fa-check-circle"></i> Acceso autorizado (demo)</p>
+            </section>
 
-            </div>
+            <nav class="navegacion">
+                <h3>HISTORIAL CLÍNICO</h3>
 
-            <div class="intensidad-moderada">
+                <button class="nav-item activo" data-vista="sintomas">
+                    <i class="fa-solid fa-heart-pulse"></i>
+                    Historial de síntomas
+                </button>
 
-                Intensidad 5/10
+                <button class="nav-item" data-vista="medicamentos">
+                    <i class="fa-solid fa-pills"></i>
+                    Medicamentos
+                </button>
 
-            </div>
+                <button class="nav-item" data-vista="diario">
+                    <i class="fa-solid fa-book-open"></i>
+                    Diario de salud
+                </button>
+            </nav>
 
-            <div class="etiquetas">
+            <button class="cerrar-sesion" type="button"
+                    onclick="window.location.href='index.html'">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Cerrar sesión
+            </button>
+        </aside>
 
-                <span>dolor abdominal</span>
+        <main class="contenido">
 
-            </div>
+            <!-- VISTA: SÍNTOMAS -->
+            <section class="vista" id="vista-sintomas">
+                <div class="encabezado-vista">
+                    <div>
+                        <h2>Historial de síntomas</h2>
+                        <p>Evolución de los registros del paciente.</p>
+                    </div>
+                    <span class="estado">Solo lectura</span>
+                </div>
 
-            <p>
+                <div class="resumen-estadisticas">
+                    <div class="estadistica">
+                        <span>Total de registros</span>
+                        <strong>8</strong>
+                        <small>Datos de demostración</small>
+                    </div>
+                    <div class="estadistica">
+                        <span>Intensidad promedio</span>
+                        <strong>7,1/10</strong>
+                        <small>Escala ilustrativa</small>
+                    </div>
+                    <div class="estadistica">
+                        <span>Registro más reciente</span>
+                        <strong>10/10</strong>
+                        <small>Dolor abdominal intenso</small>
+                    </div>
+                </div>
 
-                mal
+                <div class="bloque">
+                    <h3><i class="fa-solid fa-chart-column"></i>
+                        Intensidad de los síntomas registrados</h3>
 
+                    <div class="grafica">
+                        <div class="fila-barra">
+                            <span>Dolor abdominal</span>
+                            <div class="pista"><div class="barra severa" style="width:100%"></div></div>
+                            <strong>10/10</strong>
+                        </div>
+                        <div class="fila-barra">
+                            <span>Náuseas</span>
+                            <div class="pista"><div class="barra alta" style="width:70%"></div></div>
+                            <strong>7/10</strong>
+                        </div>
+                        <div class="fila-barra">
+                            <span>Diarrea</span>
+                            <div class="pista"><div class="barra severa" style="width:90%"></div></div>
+                            <strong>9/10</strong>
+                        </div>
+                        <div class="fila-barra">
+                            <span>Fatiga</span>
+                            <div class="pista"><div class="barra alta" style="width:60%"></div></div>
+                            <strong>6/10</strong>
+                        </div>
+                        <div class="fila-barra">
+                            <span>Mareo</span>
+                            <div class="pista"><div class="barra" style="width:50%"></div></div>
+                            <strong>5/10</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bloque">
+                    <h3>Registros recientes</h3>
+
+                    <div class="lista-registros">
+                        <article class="registro">
+                            <div class="registro-superior">
+                                <span class="fecha">10 oct. 2026 · 08:20</span>
+                                <span class="intensidad roja">Intensidad 10/10</span>
+                            </div>
+                            <strong>Dolor abdominal intenso</strong>
+                            <div class="etiquetas">
+                                <span>Dolor abdominal</span>
+                                <span>Náuseas</span>
+                            </div>
+                            <p>El paciente reporta dolor intenso, náuseas y dificultad
+                            para realizar sus actividades habituales.</p>
+                        </article>
+
+                        <article class="registro">
+                            <div class="registro-superior">
+                                <span class="fecha">9 oct. 2026 · 19:10</span>
+                                <span class="intensidad roja">Intensidad 9/10</span>
+                            </div>
+                            <strong>Dolor y diarrea</strong>
+                            <div class="etiquetas">
+                                <span>Diarrea</span>
+                                <span>Dolor abdominal</span>
+                            </div>
+                            <p>Refiere varios episodios de diarrea durante el día
+                            y malestar abdominal persistente.</p>
+                        </article>
+
+                        <article class="registro">
+                            <div class="registro-superior">
+                                <span class="fecha">8 oct. 2026 · 14:30</span>
+                                <span class="intensidad">Intensidad 7/10</span>
+                            </div>
+                            <strong>Fatiga y mareo</strong>
+                            <div class="etiquetas">
+                                <span>Fatiga</span>
+                                <span>Mareo</span>
+                            </div>
+                            <p>Registra cansancio marcado y episodios de mareo.</p>
+                        </article>
+
+                        <article class="registro">
+                            <div class="registro-superior">
+                                <span class="fecha">7 oct. 2026 · 11:00</span>
+                                <span class="intensidad">Intensidad 5/10</span>
+                            </div>
+                            <strong>Malestar general</strong>
+                            <div class="etiquetas">
+                                <span>Náuseas</span>
+                                <span>Fatiga</span>
+                            </div>
+                            <p>Describe malestar general de intensidad moderada.</p>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VISTA: MEDICAMENTOS -->
+            <section class="vista oculto" id="vista-medicamentos">
+                <div class="encabezado-vista">
+                    <div>
+                        <h2>Medicamentos</h2>
+                        <p>Registro ilustrativo del tratamiento reportado.</p>
+                    </div>
+                    <span class="estado">Solo lectura</span>
+                </div>
+
+                <div class="resumen-estadisticas">
+                    <div class="estadistica">
+                        <span>Medicamentos registrados</span>
+                        <strong>5</strong>
+                        <small>Ejemplo ficticio</small>
+                    </div>
+                    <div class="estadistica">
+                        <span>Estado del registro</span>
+                        <strong>Activo</strong>
+                        <small>Dato de demostración</small>
+                    </div>
+                    <div class="estadistica">
+                        <span>Última actualización</span>
+                        <strong>10 oct.</strong>
+                        <small>2026</small>
+                    </div>
+                </div>
+
+                <div class="bloque">
+                    <h3><i class="fa-solid fa-pills"></i> Listado de medicamentos</h3>
+
+                    <div class="tabla-contenedor">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Medicamento</th>
+                                    <th>Dosis registrada</th>
+                                    <th>Horario registrado</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            
+<tbody>
+    <tr>
+        <td>Omeprazol<small>Registro ficticio</small></td>
+        <td>20 mg</td>
+        <td>08:00</td>
+        <td><span class="estado-medicamento">Registrado</span></td>
+    </tr>
+    <tr>
+        <td>Ondansetrón<small>Registro ficticio</small></td>
+        <td>4 mg</td>
+        <td>Según registro</td>
+        <td><span class="estado-medicamento">Registrado</span></td>
+    </tr>
+    <tr>
+        <td>Acetaminofén<small>Registro ficticio</small></td>
+        <td>500 mg</td>
+        <td>Según registro</td>
+        <td><span class="estado-medicamento">Registrado</span></td>
+    </tr>
+    <tr>
+        <td>Sales de rehidratación oral<small>Registro ficticio</small></td>
+        <td>Según presentación</td>
+        <td>Según registro</td>
+        <td><span class="estado-medicamento">Registrado</span></td>
+    </tr>
+    <tr>
+        <td>Butilhioscina<small>Registro ficticio</small></td>
+        <td>10 mg</td>
+        <td>Según registro</td>
+        <td><span class="estado-medicamento">Registrado</span></td>
+    </tr>
+</tbody>
+
+                        </table>
+                    </div>
+
+                    <p class="nota-demo">
+                        Los nombres, dosis y horarios son datos de ejemplo, no una
+                        prescripción médica. No deben utilizarse para administrar tratamientos.
+                    </p>
+                </div>
+            </section>
+
+            <!-- VISTA: DIARIO -->
+            <section class="vista oculto" id="vista-diario">
+                <div class="encabezado-vista">
+                    <div>
+                        <h2>Diario de salud</h2>
+                        <p>Entradas registradas por el paciente.</p>
+                    </div>
+                    <span class="estado">Solo lectura</span>
+                </div>
+
+                <div class="resumen-estadisticas">
+                    <div class="estadistica">
+                        <span>Total de entradas</span>
+                        <strong>6</strong>
+                        <small>Datos de demostración</small>
+                    </div>
+                    <div class="estadistica">
+                        <span>Última entrada</span>
+                        <strong>10 oct.</strong>
+                        <small>2026</small>
+                    </div>
+                </div>
+
+                <div class="bloque">
+                    <h3><i class="fa-solid fa-book-open"></i> Entradas del diario</h3>
+
+                    <article class="entrada-diario">
+                        <span class="fecha">10 oct. 2026 · 08:45</span>
+                        <h3>Dolor intenso y malestar</h3>
+                        <p>Hoy amanecí con dolor abdominal muy fuerte y náuseas.
+                        Me siento débil y me cuesta hacer mis actividades normales.</p>
+                    </article>
+
+                    <article class="entrada-diario">
+                        <span class="fecha">9 oct. 2026 · 20:00</span>
+                        <h3>Un día difícil</h3>
+                        <p>Tuve varios episodios de diarrea durante el día.
+                        El dolor volvió por la tarde y terminé muy cansado.</p>
+                    </article>
+
+                    <article class="entrada-diario">
+                        <span class="fecha">8 oct. 2026 · 15:10</span>
+                        <h3>Fatiga y mareo</h3>
+                        <p>Me sentí débil al levantarme y tuve mareo durante
+                        algunos minutos. Pasé gran parte del día descansando.</p>
+                    </article>
+
+                    <article class="entrada-diario">
+                        <span class="fecha">7 oct. 2026 · 19:30</span>
+                        <h3>Continúa el malestar</h3>
+                        <p>El malestar no ha desaparecido por completo.
+                        Estoy anotando los síntomas para poder explicarlos en la consulta.</p>
+                    </article>
+
+                    <article class="entrada-diario">
+                        <span class="fecha">6 oct. 2026 · 09:00</span>
+                        <h3>Poco apetito</h3>
+                        <p>Hoy tuve poco apetito y me sentí más cansado de lo habitual.</p>
+                    </article>
+
+                    <article class="entrada-diario">
+                        <span class="fecha">5 oct. 2026 · 18:15</span>
+                        <h3>Primer registro de la semana</h3>
+                        <p>Comencé a registrar el dolor abdominal y el malestar general
+                        para llevar un seguimiento de cómo me siento.</p>
+                    </article>
+                </div>
+            </section>
+
+            <p class="nota-demo">
+                <i class="fa-solid fa-circle-info"></i>
+                Prototipo frontend con información clínica ficticia.
+                No representa una historia clínica real ni proporciona indicaciones médicas.
             </p>
-
-        </section>
-
-
-        <!-- REGISTRO 2 -->
-
-        <section class="registro-sintoma">
-
-            <div class="fecha">
-
-                1 de septiembre, 2026 — 20:08
-
-            </div>
-
-            <div class="intensidad-severa">
-
-                Intensidad 10/10
-
-            </div>
-
-            <div class="etiquetas">
-
-                <span>diarrea</span>
-
-                <span>dolor</span>
-
-            </div>
-
-            <p>
-
-                mal
-
-            </p>
-
-        </section>
-
-
-        <!-- MEDICAMENTOS -->
-
-        <section id="medicamentos" style="display:none;">
-
-        </section>
-
-
-        <!-- DIARIO -->
-
-        <section id="diario" style="display:none;">
-
-        </section>
-
-    </main>
-
-
-    <!-- CERRAR SESIÓN -->
-
-    <div class="cerrar">
-
-        <button
-            type="button"
-            onclick="window.location.href='index.html'">
-
-            Cerrar sesión
-
-        </button>
-
+        </main>
     </div>
-
 </div>
 
-</body>
+<script>
+    // Pacientes ficticios para la demostración del frontend.
+     
+const pacientes = [
+    {
+        documento: "1020304050",
+        nombre: "Carlos Andrés Rojas",
+        estado: "autorizado"
+    },
+    {
+        documento: "1000200030",
+        nombre: "María Fernanda Torres",
+        estado: "autorizado"
+    },
+    {
+        documento: "1030405060",
+        nombre: "Daniel Esteban López",
+        estado: "pendiente"
+    }
+];
 
+    const formulario = document.getElementById("form-busqueda");
+    const campoDocumento = document.getElementById("documento");
+    const resultados = document.getElementById("resultados");
+    const mensaje = document.getElementById("mensaje-busqueda");
+
+    function seleccionarPaciente(paciente) {
+        document.getElementById("nombre-lateral").textContent = paciente.nombre;
+        document.getElementById("documento-lateral").textContent =
+            "Documento: " + paciente.documento;
+
+        const autorizado = paciente.estado === "autorizado";
+        document.getElementById("panel-clinico").classList.toggle(
+            "oculto", !autorizado
+        );
+
+        if (!autorizado) {
+            mensaje.textContent = paciente.estado === "pendiente"
+                ? "Solicitud pendiente en esta demostración. El historial permanece bloqueado."
+                : "Este paciente no tiene autorización de demostración. No se puede consultar su historial.";
+            return;
+        }
+
+        mensaje.textContent =
+            "Paciente de demostración seleccionado. Acceso autorizado.";
+        cambiarVista("sintomas");
+        document.getElementById("panel-clinico").scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }
+
+    formulario.addEventListener("submit", function(evento) {
+        evento.preventDefault();
+
+        const documento = campoDocumento.value.trim();
+
+        resultados.replaceChildren();
+
+        if (!/^\d+$/.test(documento)) {
+            mensaje.textContent =
+                "Ingresa un número de documento compuesto únicamente por dígitos.";
+            return;
+        }
+
+        const encontrados = pacientes.filter(function(paciente) {
+            return paciente.documento === documento;
+        });
+
+        if (encontrados.length === 0) {
+            mensaje.textContent =
+                "No se encontró un paciente de demostración con ese documento.";
+            return;
+        }
+
+        mensaje.textContent = "Resultado de la búsqueda:";
+        mostrarResultados(encontrados);
+    });
+
+    function mostrarResultados(lista) {
+        resultados.replaceChildren();
+
+        lista.forEach(function(paciente) {
+            const tarjeta = document.createElement("article");
+            tarjeta.className = "paciente-lista";
+
+            const avatar = document.createElement("div");
+            avatar.className = "avatar";
+            avatar.innerHTML = '<i class="fa-solid fa-user"></i>';
+
+            const info = document.createElement("div");
+            info.className = "info";
+
+            const nombre = document.createElement("h3");
+            nombre.textContent = paciente.nombre;
+
+            const documento = document.createElement("p");
+            documento.textContent = "Documento: " + paciente.documento;
+
+            const estado = document.createElement("span");
+            estado.className = "estado";
+            estado.textContent = paciente.estado === "autorizado"
+                ? "Autorizado (demo)"
+                : paciente.estado === "pendiente"
+                    ? "Pendiente (demo)"
+                    : "Sin solicitud";
+
+            info.append(nombre, documento, estado);
+
+            const boton = document.createElement("button");
+            boton.type = "button";
+            boton.textContent = paciente.estado === "autorizado"
+                ? "Ver historial"
+                : paciente.estado === "pendiente"
+                    ? "Ver estado"
+                    : "Solicitar acceso";
+
+            boton.addEventListener("click", function() {
+                if (paciente.estado === "autorizado") {
+                    seleccionarPaciente(paciente);
+                } else if (paciente.estado === "pendiente") {
+                    mensaje.textContent =
+                        "Solicitud de demostración pendiente. El historial continúa bloqueado.";
+                } else {
+                    paciente.estado = "pendiente";
+                    mostrarResultados([paciente]);
+                    mensaje.textContent =
+                        "Solicitud de acceso simulada. No se ha enviado ninguna solicitud real.";
+                }
+            });
+
+            tarjeta.append(avatar, info, boton);
+            resultados.appendChild(tarjeta);
+        });
+    }
+
+    
+function actualizarListaAutorizados() {
+    const autorizados = pacientes.filter(function(paciente) {
+        return paciente.estado === "autorizado";
+    });
+
+    mensaje.textContent = "Pacientes con acceso autorizado:";
+    mostrarResultados(autorizados);
+}
+
+campoDocumento.addEventListener("input", function() {
+    if (campoDocumento.value.trim() === "") {
+        actualizarListaAutorizados();
+    }
+});
+
+
+    function cambiarVista(vista) {
+        document.querySelectorAll(".vista").forEach(function(seccion) {
+            seccion.classList.add("oculto");
+        });
+
+        const seleccionada = document.getElementById("vista-" + vista);
+        if (seleccionada) seleccionada.classList.remove("oculto");
+
+        document.querySelectorAll(".nav-item").forEach(function(boton) {
+            boton.classList.toggle("activo", boton.dataset.vista === vista);
+        });
+    }
+
+    document.querySelectorAll(".nav-item").forEach(function(boton) {
+        boton.addEventListener("click", function() {
+            cambiarVista(boton.dataset.vista);
+        });
+    });
+
+    // Cargar el paciente ficticio que ya autorizó el acceso.
+    seleccionarPaciente(pacientes[0]);
+    actualizarListaAutorizados();
+</script>
+</body>
 </html>

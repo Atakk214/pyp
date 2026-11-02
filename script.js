@@ -14,7 +14,7 @@ function ingresar(){
     }
     //Personal de salud
 
-    else if(usuario=="Salud" && contrasena=="12345"){
+    else if(usuario=="Salud" && contrasena=="1234"){
 
         alert("Bienvenido al sistema PyP-Personal de salud✨​");
         window.location.href="panelSalud.html";

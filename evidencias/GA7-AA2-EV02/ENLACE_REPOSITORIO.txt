@@ -1,0 +1,2 @@
+Repositorio principal del Sistema PyP: https://github.com/Atakk214/pyp.git
+IMPORTANTE: Esta versión EV02 aún no se ha publicado en ese repositorio; subir los cambios antes de presentar el enlace como evidencia de versionamiento.

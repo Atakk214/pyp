@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ ============================================================================
+ SISTEMA DE PROMOCIÓN Y PREVENCIÓN EN SALUD (SISTEMA PyP)
+ SENA - CENTRO DE FORMACIÓN / REGIONAL
+ TECNÓLOGO EN ANÁLISIS Y DESARROLLO DE SOFTWARE (ADSO) - FICHA: 3336045
+
+ EVIDENCIA: GA7-220501096-AA3-EV01
+ ACTIVIDAD: Codificación de módulos del software stand-alone, web y móvil
+ COMPONENTE FORMATIVO: CF20 - Tecnologías y frameworks en el ecosistema Java
+ AUTORES: Angie Catalina Garzón Duarte & Linyermar Miryet Altuzarra Balza
+ INSTRUCTORA: Jenny Guio
+
+ ============================================================================
+ NOVEDADES Y DIFERENCIAS RESPECTO A LA EVIDENCIA ANTERIOR (AA2-EV02):
+ 1. En AA2-EV02 se utilizó empaquetado WAR dependiente de Servlets Java nativos
+    (HttpServlet) y JdbcTemplate con sentencias SQL manuales.
+ 2. En AA3-EV01 se implementa el FRAMEWORK EMPRESARIAL SPRING BOOT (3.3.5):
+    - spring-boot-starter-web: Spring MVC + REST API para Web y Móvil.
+    - spring-boot-starter-data-jpa: Mapeo Objeto-Relacional (ORM) con Hibernate.
+    - spring-boot-starter-validation: Validaciones declarativas (@Min, @Max, @NotBlank).
+    - spring-boot-starter-thymeleaf: Vistas HTML5 modernas del Sistema PyP.
+    - mysql-connector-j: Conexión a la base de datos física MySQL (sistema_pyp).
+    - h2: Base de datos en memoria para respaldo y pruebas inmediatas.
+ ============================================================================
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--
+      HERENCIA DEL STARTER PARENT DE SPRING BOOT:
+      Proporciona gestión centralizada de dependencias compatibles y configuración base de plugins.
+    -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.5</version>
+        <relativePath/>
+    </parent>
+
+    <!-- IDENTIFICACIÓN DEL PROYECTO PyP -->
+    <groupId>com.sistemapyp</groupId>
+    <artifactId>sistema-pyp-framework</artifactId>
+    <version>0.0.3-SNAPSHOT</version>
+    <name>sistema-pyp-framework</name>
+    <description>Sistema PyP - Módulo con Framework Spring Boot, Spring Data JPA y Spring MVC (GA7-AA3-EV01)</description>
+
+    <properties>
+        <!-- Versión de Java JDK utilizada en el proyecto formativo SENA ADSO -->
+        <java.version>21</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <!--
+          ======================================================================
+          1. STARTER WEB: SPRING MVC + API RESTFUL
+          ======================================================================
+          - Habilita el servidor embebido Tomcat (ejecución Stand-alone y Web).
+          - Provee soporte para controladores web (@Controller) y servicios REST (@RestController).
+          - Permite que la aplicación web y la aplicación móvil Android interactúen con el backend.
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!--
+          ======================================================================
+          2. STARTER DATA JPA + HIBERNATE (ORM)
+          ======================================================================
+          - Reemplaza el JDBC manual y los Servlets de la evidencia anterior.
+          - Implementa el estándar JPA (Java Persistence API) para mapear clases a tablas.
+          - Genera automáticamente las operaciones CRUD (save, findById, findAll, delete).
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <!--
+          ======================================================================
+          3. STARTER VALIDATION: VALIDACIÓN DECLARATIVA DE DATOS
+          ======================================================================
+          - Permite validar reglas de negocio en las entidades y formularios
+            (por ejemplo: @NotBlank, @Min, @Max, @Size).
+          - Garantiza que la edad del paciente esté estrictamente entre 0 y 120 años.
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
+        <!--
+          ======================================================================
+          4. STARTER THYMELEAF: MOTOR DE PLANTILLAS WEB MODERNAS
+          ======================================================================
+          - Permite crear interfaces HTML5 dinámicas sin usar los viejos archivos JSP.
+          - Integra fácilmente los estilos CSS y diseños del Sistema PyP.
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
+        <!--
+          ======================================================================
+          5. DRIVER DE CONEXIÓN A BASE DE DATOS MYSQL
+          ======================================================================
+          - Conecta el aplicativo a la base de datos real 'sistema_pyp' en MySQL Server.
+        -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!--
+          ======================================================================
+          6. BASE DE DATOS H2 (EN MEMORIA / RESPALDO)
+          ======================================================================
+          - Permite ejecutar pruebas rápidas y demostraciones sin depender
+            obligatoriamente del servicio MySQL activo.
+        -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!--
+          ======================================================================
+          7. STARTER TEST: PRUEBAS AUTOMATIZADAS (JUNIT 5 + SPRING TEST)
+          ======================================================================
+          - Permite escribir y ejecutar pruebas unitarias y de integración
+            para validar que cada capa del software funcione sin errores.
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!--
+              PLUGIN SPRING BOOT MAVEN:
+              Permite empaquetar la aplicación como un archivo JAR ejecutable
+              y ejecutarla localmente con: ./mvnw spring-boot:run
+            -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

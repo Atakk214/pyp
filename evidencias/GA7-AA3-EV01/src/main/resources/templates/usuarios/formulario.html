@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<!--
+ ============================================================================
+ SISTEMA DE PROMOCIÓN Y PREVENCIÓN EN SALUD (SISTEMA PyP)
+ SENA - CENTRO DE FORMACIÓN / REGIONAL
+ TECNÓLOGO EN ANÁLISIS Y DESARROLLO DE SOFTWARE (ADSO) - FICHA: 3336045
+
+ EVIDENCIA: GA7-220501096-AA3-EV01
+ ACTIVIDAD: Codificación de módulos del software stand-alone, web y móvil
+ COMPONENTE FORMATIVO: CF20 - Tecnologías y frameworks en el ecosistema Java
+ AUTORES: Angie Catalina Garzón Duarte & Linyermar Miryet Altuzarra Balza
+ INSTRUCTORA: Jenny Guio
+
+ ============================================================================
+ NOVEDAD Y CAMBIO IMPLEMENTADO EN ESTE FORMULARIO (AA3-EV01):
+ - En la evidencia previa (AA2-EV02), el formulario dependía de leer parámetros
+   manuales en el Servlet (request.getParameter("...")) y no existía validación
+   automática de restricciones ni mensajes de error por campo.
+ - En esta evidencia (AA3-EV01), se aplica SPRING MVC MODEL BINDING:
+   1. th:object="${usuario}": Vincula automáticamente el formulario con la entidad JPA.
+   2. th:field="*{campo}": Enlaza el valor y preserva lo digitado si hay error.
+   3. th:errors="*{campo}": Muestra en color rojo la validación fallida generada
+      por las anotaciones de Jakarta (@NotBlank, @Min, @Max, @Pattern) definidas en el modelo.
+ ============================================================================
+-->
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${titulo}">Sistema PyP - Formulario de Usuario</title>
+    <!-- Estilos institucionales del Sistema PyP -->
+    <link rel="stylesheet" th:href="@{/css/sistema-pyp.css}">
+</head>
+<body>
+
+    <!-- BARRA SUPERIOR DE NAVEGACIÓN -->
+    <header class="navbar">
+        <a th:href="@{/usuarios}" class="navbar-brand">
+            <h1>Sistema PyP</h1>
+            <span>Evidencia GA7-AA3-EV01</span>
+        </a>
+        <nav class="navbar-nav">
+            <a th:href="@{/usuarios}" class="nav-link">&larr; Volver a la Lista</a>
+        </nav>
+    </header>
+
+    <main class="container">
+
+        <!-- MENSAJE DE ERROR GLOBAL SI OCURRE ALGUNA EXCEPCIÓN DE NEGOCIO -->
+        <div th:if="${mensajeError != null}" class="alert alert-danger" role="alert">
+            <span th:text="${mensajeError}">Ocurrió un error al procesar el usuario</span>
+        </div>
+
+        <!-- TARJETA DEL FORMULARIO -->
+        <section class="form-card">
+            <div class="form-header">
+                <h2 th:text="${titulo}">Registrar Nuevo Usuario / Paciente</h2>
+                <p>Complete la información médica y demográfica requerida para el Sistema de Promoción y Prevención.</p>
+            </div>
+
+            <!-- Formulario con enlace bidireccional de Spring MVC: th:object -->
+            <form th:action="${modoEdicion} ? @{/usuarios/actualizar} : @{/usuarios/guardar}" 
+                  th:object="${usuario}" method="post">
+
+                <!-- CAMPO: DOCUMENTO DE IDENTIDAD (ID USUARIO) -->
+                <div class="form-group">
+                    <label for="idUsuario" class="form-label">Número de Documento / Identificación (*)</label>
+                    <input type="text" id="idUsuario" th:field="*{idUsuario}" 
+                           th:readonly="${modoEdicion}"
+                           placeholder="Ej: 1020304050" class="form-control"
+                           th:classappend="${#fields.hasErrors('idUsuario')} ? 'is-invalid' : ''">
+                    <small th:if="${modoEdicion}" style="color: #64748b; font-size: 0.78rem;">
+                        * La clave primaria (documento) no puede ser modificada en modo edición.
+                    </small>
+                    <!-- Mensaje de error de validación -->
+                    <span class="form-text-error" th:if="${#fields.hasErrors('idUsuario')}" th:errors="*{idUsuario}">
+                        Error en el documento
+                    </span>
+                </div>
+
+                <!-- CAMPO: NOMBRE COMPLETO -->
+                <div class="form-group">
+                    <label for="nombre" class="form-label">Nombre Completo (*)</label>
+                    <input type="text" id="nombre" th:field="*{nombre}" 
+                           placeholder="Ej: Angie Garzón" class="form-control">
+                    <span class="form-text-error" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">
+                        El nombre es obligatorio
+                    </span>
+                </div>
+
+                <!-- CAMPO: ROL EN EL SISTEMA (TIPO_USUARIO) -->
+                <div class="form-group">
+                    <label for="tipoUsuario" class="form-label">Rol en el Sistema PyP (*)</label>
+                    <select id="tipoUsuario" th:field="*{tipoUsuario}" class="form-control">
+                        <option value="">-- Seleccione un Rol --</option>
+                        <option value="PACIENTE">PACIENTE (Usuario del programa PyP)</option>
+                        <option value="PERSONAL_SALUD">PERSONAL_SALUD (Médico / Enfermero / Especialista)</option>
+                    </select>
+                    <span class="form-text-error" th:if="${#fields.hasErrors('tipoUsuario')}" th:errors="*{tipoUsuario}">
+                        Seleccione un rol válido
+                    </span>
+                </div>
+
+                <!-- CAMPO: GÉNERO / SEXO BIOLÓGICO -->
+                <div class="form-group">
+                    <label for="sexo" class="form-label">Género / Sexo Biológico</label>
+                    <select id="sexo" th:field="*{sexo}" class="form-control">
+                        <option value="">-- Seleccione --</option>
+                        <option value="FEMENINO">Femenino</option>
+                        <option value="MASCULINO">Masculino</option>
+                        <option value="OTRO">Otro</option>
+                    </select>
+                </div>
+
+                <!-- CAMPO: EDAD (RESTRICCIÓN: 0 A 120 AÑOS) -->
+                <div class="form-group">
+                    <label for="edad" class="form-label">Edad (Años) (*)</label>
+                    <input type="number" id="edad" th:field="*{edad}" 
+                           min="0" max="120" placeholder="Ej: 22" class="form-control">
+                    <small style="color: #64748b; font-size: 0.78rem;">
+                        * Restricción médica del modelo físico: Entre 0 y 120 años (chk_edad).
+                    </small>
+                    <span class="form-text-error" th:if="${#fields.hasErrors('edad')}" th:errors="*{edad}">
+                        Edad fuera de rango
+                    </span>
+                </div>
+
+                <!-- CAMPO: TELÉFONO DE CONTACTO -->
+                <div class="form-group">
+                    <label for="telefono" class="form-label">Teléfono de Contacto</label>
+                    <input type="text" id="telefono" th:field="*{telefono}" 
+                           placeholder="Ej: 3001234567" class="form-control">
+                </div>
+
+                <!-- CAMPO: PAÍS -->
+                <div class="form-group">
+                    <label for="pais" class="form-label">País de Residencia</label>
+                    <input type="text" id="pais" th:field="*{pais}" 
+                           placeholder="Ej: Colombia" class="form-control">
+                </div>
+
+                <!-- BOTONES DE ACCIÓN -->
+                <div class="form-actions">
+                    <a th:href="@{/usuarios}" class="btn btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-success">
+                        <span th:text="${modoEdicion} ? 'Actualizar Datos' : 'Guardar Usuario'">Guardar</span>
+                    </button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <!-- FOOTER INSTITUCIONAL -->
+    <footer class="footer">
+        <p>Sistema PyP &copy; 2026 — Ficha 3336045 SENA ADSO</p>
+    </footer>
+
+</body>
+</html>

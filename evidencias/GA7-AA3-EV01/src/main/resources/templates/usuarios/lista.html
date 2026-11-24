@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<!--
+ ============================================================================
+ SISTEMA DE PROMOCIÓN Y PREVENCIÓN EN SALUD (SISTEMA PyP)
+ SENA - CENTRO DE FORMACIÓN / REGIONAL
+ TECNÓLOGO EN ANÁLISIS Y DESARROLLO DE SOFTWARE (ADSO) - FICHA: 3336045
+
+ EVIDENCIA: GA7-220501096-AA3-EV01
+ ACTIVIDAD: Codificación de módulos del software stand-alone, web y móvil
+ COMPONENTE FORMATIVO: CF20 - Tecnologías y frameworks en el ecosistema Java
+ AUTORES: Angie Catalina Garzón Duarte & Linyermar Miryet Altuzarra Balza
+ INSTRUCTORA: Jenny Guio
+
+ ============================================================================
+ NOVEDAD Y CAMBIO IMPLEMENTADO EN ESTA VISTA (AA3-EV01):
+ - En la evidencia anterior (AA2-EV02), la vista utilizaba Java Server Pages (JSP)
+   antiguas (<%@ page ... %> y JSTL <c:forEach>) dependientes de un contenedor WAR.
+ - En esta evidencia (AA3-EV01), se implementa THYMELEAF (HTML5 Moderno):
+   1. Sintaxis limpia con atributos nativos: th:each, th:text, th:href, th:if.
+   2. Renderizado del lado del servidor (SSR) integrado con Spring Boot.
+   3. Interfaz intuitiva y accesible inspirada en los prototipos del Sistema PyP
+      (panelPaciente.html y panelSalud.html).
+ ============================================================================
+-->
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema PyP - Gestión de Usuarios y Pacientes</title>
+    <!-- Estilos institucionales del Sistema PyP con Framework Spring Boot -->
+    <link rel="stylesheet" th:href="@{/css/sistema-pyp.css}">
+</head>
+<body>
+
+    <!-- BARRA DE NAVEGACIÓN INSTITUCIONAL -->
+    <header class="navbar">
+        <a th:href="@{/usuarios}" class="navbar-brand">
+            <h1>Sistema PyP</h1>
+            <span>Evidencia GA7-AA3-EV01 (Framework Spring Boot)</span>
+        </a>
+        <nav class="navbar-nav">
+            <a th:href="@{/usuarios}" class="nav-link">Inicio / Usuarios</a>
+            <a th:href="@{/api/v1/usuarios}" target="_blank" class="nav-link">API REST (Móvil)</a>
+        </nav>
+    </header>
+
+    <main class="container">
+
+        <!-- MENSAJES FLASH DE ÉXITO O ERROR TRAS REDIRECCIONES (PRG PATTERN) -->
+        <div th:if="${mensajeExito != null}" class="alert alert-success" role="alert">
+            <span th:text="${mensajeExito}">Operación realizada con éxito</span>
+        </div>
+
+        <div th:if="${mensajeError != null}" class="alert alert-danger" role="alert">
+            <span th:text="${mensajeError}">Ocurrió un error en la operación</span>
+        </div>
+
+        <!-- TARJETAS CON MÉTRICAS DEL PROGRAMA PyP -->
+        <section class="metrics-grid">
+            <div class="metric-card total">
+                <span class="metric-title">Total Registrados</span>
+                <span class="metric-value" th:text="${#lists.size(usuarios)}">0</span>
+                <span class="metric-subtitle">Base de datos MySQL 'sistema_pyp'</span>
+            </div>
+            <div class="metric-card pacientes">
+                <span class="metric-title">Pacientes Activos</span>
+                <span class="metric-value" th:text="${totalPacientes}">0</span>
+                <span class="metric-subtitle">Programa de Promoción y Prevención</span>
+            </div>
+            <div class="metric-card salud">
+                <span class="metric-title">Personal de Salud</span>
+                <span class="metric-value" th:text="${totalSalud}">0</span>
+                <span class="metric-subtitle">Médicos, enfermeros y especialistas</span>
+            </div>
+        </section>
+
+        <!-- BARRA DE ACCIONES: BÚSQUEDA, FILTROS Y NUEVO REGISTRO -->
+        <section class="action-card">
+            <!-- Formulario de búsqueda por nombre -->
+            <form th:action="@{/usuarios}" method="get" class="search-form">
+                <input type="text" name="q" th:value="${criterioBusqueda}" 
+                       placeholder="Buscar por nombre o apellido..." class="form-control">
+                <button type="submit" class="btn btn-secondary">Buscar</button>
+                <a th:if="${criterioBusqueda != null}" th:href="@{/usuarios}" class="btn btn-secondary">Limpiar</a>
+            </form>
+
+            <!-- Filtros por Rol y Botón de Nuevo Registro -->
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                <a th:href="@{/usuarios}" class="btn btn-secondary btn-sm">Todos</a>
+                <a th:href="@{/usuarios(filtro='PACIENTE')}" class="btn btn-secondary btn-sm">Solo Pacientes</a>
+                <a th:href="@{/usuarios(filtro='PERSONAL_SALUD')}" class="btn btn-secondary btn-sm">Personal Salud</a>
+                <a th:href="@{/usuarios/nuevo}" class="btn btn-primary">
+                    + Registrar Usuario
+                </a>
+            </div>
+        </section>
+
+        <!-- TABLA PRINCIPAL DE USUARIOS / PACIENTES -->
+        <section class="table-card">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Documento (ID)</th>
+                            <th>Nombre Completo</th>
+                            <th>Rol PyP</th>
+                            <th>Género</th>
+                            <th>Edad</th>
+                            <th>Teléfono</th>
+                            <th>País</th>
+                            <th style="text-align: center;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Iteración declarativa con Thymeleaf: th:each -->
+                        <tr th:each="u : ${usuarios}">
+                            <td style="font-weight: 600;" th:text="${u.idUsuario}">1001</td>
+                            <td th:text="${u.nombre}">Nombre Ejemplo</td>
+                            <td>
+                                <!-- Badge dinámico según el tipo de usuario -->
+                                <span th:if="${u.tipoUsuario == 'PACIENTE'}" class="badge badge-paciente">PACIENTE</span>
+                                <span th:if="${u.tipoUsuario == 'PERSONAL_SALUD'}" class="badge badge-salud">PERSONAL SALUD</span>
+                            </td>
+                            <td th:text="${u.sexo != null ? u.sexo : 'N/A'}">Femenino</td>
+                            <td>
+                                <span th:text="${u.edad}">25</span> años
+                            </td>
+                            <td th:text="${u.telefono != null ? u.telefono : 'N/A'}">3001234567</td>
+                            <td th:text="${u.pais != null ? u.pais : 'N/A'}">Colombia</td>
+                            <td style="text-align: center; white-space: nowrap;">
+                                <!-- Botón Editar -->
+                                <a th:href="@{/usuarios/editar/{id}(id=${u.idUsuario})}" class="btn btn-secondary btn-sm">
+                                    Editar
+                                </a>
+                                <!-- Botón Eliminar con confirmación JavaScript -->
+                                <a th:href="@{/usuarios/eliminar/{id}(id=${u.idUsuario})}" 
+                                   onclick="return confirm('¿Está seguro de eliminar este usuario del Sistema PyP?');" 
+                                   class="btn btn-danger btn-sm">
+                                    Eliminar
+                                </a>
+                            </td>
+                        </tr>
+                        <!-- Mensaje si la tabla está vacía -->
+                        <tr th:if="${#lists.isEmpty(usuarios)}">
+                            <td colspan="8" style="text-align: center; padding: 2rem; color: #64748b;">
+                                No se encontraron usuarios registrados en el sistema.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER INSTITUCIONAL SENA ADSO -->
+    <footer class="footer">
+        <p>
+            <strong>Sistema PyP</strong> &copy; 2026 — Promoción y Prevención en Salud | 
+            SENA ADSO Ficha 3336045 | 
+            Desarrollado por: <strong>Angie Garzón &amp; Linyermar Altuzarra</strong>
+        </p>
+    </footer>
+
+</body>
+</html>
